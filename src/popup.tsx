@@ -1,51 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { StorageService } from "./services/storage";
 
 const Popup = () => {
-  const [count, setCount] = useState(0);
   const [currentURL, setCurrentURL] = useState<string>();
-
-  useEffect(() => {
-    chrome.action.setBadgeText({ text: count.toString() });
-  }, [count]);
+  const [siteName, setSiteName] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       setCurrentURL(tabs[0].url);
+      // Récupérer le nom du site à partir de l'URL
+      try {
+        const url = new URL(tabs[0].url!);
+        const urlParams = new URLSearchParams(url.search);
+        const urlParameter = urlParams.get("url");
+        setCurrentURL(urlParameter || url.hostname);
+      } catch {
+        setCurrentURL("");
+      }
     });
   }, []);
 
-  const changeBackground = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const tab = tabs[0];
-      if (tab.id) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          {
-            color: "#555555",
-          },
-          (msg) => {
-            console.log("result message:", msg);
-          }
-        );
-      }
-    });
-  };
+  const addToAllowedSites = useCallback(async () => {
+    if (!currentURL || !siteName) return;
+
+    try {
+      const settings = await StorageService.getSettings();
+      console.log("settings", settings);
+      console.log("new url", new URL(currentURL).hostname);
+      console.log("siteName", siteName);
+      const newSite = {
+        id: Date.now().toString(),
+        url: new URL(currentURL).hostname,
+        name: siteName,
+      };
+
+      await StorageService.updateSettings({
+        allowedSites: [...settings.allowedSites, newSite],
+      });
+
+      setStatus("Site ajouté avec succès !");
+      setTimeout(() => setStatus(""), 2000);
+    } catch (error) {
+      setStatus("Erreur lors de l'ajout du site");
+      setTimeout(() => setStatus(""), 2000);
+    }
+  }, [currentURL, siteName]);
 
   return (
-    <>
-      <ul style={{ minWidth: "700px" }}>
-        <li>Current URL: {currentURL}</li>
-        <li>Current Time: {new Date().toLocaleTimeString()}</li>
-      </ul>
-      <button
-        onClick={() => setCount(count + 1)}
-        style={{ marginRight: "5px" }}
-      >
-        count up
-      </button>
-      <button onClick={changeBackground}>change background</button>
-    </>
+    <div style={{ padding: "16px", width: "300px" }}>
+      <h2 style={{ marginBottom: "16px" }}>Focus Mode</h2>
+
+      <div style={{ marginBottom: "16px" }}>
+        <p style={{ marginBottom: "8px" }}>Site actuel :</p>
+        <p
+          style={{
+            wordBreak: "break-all",
+            fontSize: "12px",
+            color: "#666",
+            marginBottom: "16px",
+          }}
+        >
+          {currentURL}
+        </p>
+
+        <div style={{ marginBottom: "8px" }}>
+          <label style={{ display: "block", marginBottom: "4px" }}>
+            Nom du site :
+          </label>
+          <input
+            type="text"
+            value={siteName}
+            onChange={(e) => setSiteName(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "8px",
+              marginBottom: "8px",
+              borderRadius: "4px",
+              border: "1px solid #ddd",
+            }}
+          />
+        </div>
+
+        <button
+          onClick={addToAllowedSites}
+          style={{
+            width: "100%",
+            padding: "8px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Ajouter aux sites autorisés
+        </button>
+
+        {status && (
+          <p
+            style={{
+              marginTop: "8px",
+              color: status.includes("Erreur") ? "#e74c3c" : "#2ecc71",
+              fontSize: "12px",
+            }}
+          >
+            {status}
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
 
