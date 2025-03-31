@@ -1,21 +1,33 @@
-MIT License
+Copyright (c) 2024 Lucas Porrini
+All rights reserved.
 
-Copyright (c) 2018 Tomofumi Chiba
+PROPRIETARY LICENSE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software and its documentation are protected by copyright law. All rights reserved.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Usage Rights
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+   - The use of this software is strictly reserved to Lucas Porrini.
+   - No other person is authorized to use, copy, modify, or distribute this software.
+
+2. Restrictions
+
+   - Reproduction, modification, distribution, or use of this software is strictly prohibited.
+   - Any attempt to bypass the protections of this software is prohibited.
+   - Decompilation, reverse engineering, or any other form of source code analysis is prohibited.
+
+3. Ownership
+
+   - The source code, binary files, documentation, and any associated materials are and remain the exclusive property of Lucas Porrini.
+   - No license or usage rights are granted to anyone.
+
+4. Warranties
+
+   - This software is provided "as is", without any warranty.
+   - Lucas Porrini shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use this software.
+
+5. Duration
+   - This license is valid for an unlimited duration.
+   - The rights and obligations defined in this license shall survive any expiration or termination.
+
+For any questions regarding this license, please contact Lucas Porrini.

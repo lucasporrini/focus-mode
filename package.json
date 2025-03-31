@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-typescript-starter",
+  "name": "focus-mode",
   "version": "1.0.0",
-  "description": "chrome-extension-typescript-starter",
+  "description": "Focus Mode",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
@@ -10,11 +10,11 @@
     "test": "npx jest",
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "author": "",
-  "license": "MIT",
+  "author": "Lucas Porrini",
+  "license": "Proprietary",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
+    "url": "https://github.com/lucasporrini/focus-mode"
   },
   "dependencies": {
     "react": "^18.2.0",
